@@ -24,6 +24,7 @@ jobs:
         run: |
           npm audit --audit-level=none
           npm outdated || code=$?; if [ $code -eq 1 ]; then echo 0; else echo $code; fi
+          node_modules/.bin/eslint -f json **/*.ts -o eslint_report.json --report-unused-disable-directives --exit-on-fatal-error || code=$?; if [ $code -eq 2 ]; then echo 0; else echo $code; fi
 
       - name: Dependency check
         env:
